@@ -1,0 +1,12 @@
+#!/bin/sh
+# Remove unwanted co-author / attribution trailers from commit messages.
+for pattern in \
+  'Co-authored-by:.*[Cc]ursor' \
+  'Co-authored-by:.*cursoragent' \
+  'Co-authored-by:.*Cursor Agent' \
+  'Made-with: Cursor' \
+  'Made-with:.*[Cc]ursor'
+do
+  sed -i.bak "/${pattern}/d" "$1" 2>/dev/null || sed -i "/${pattern}/d" "$1"
+done
+rm -f "$1.bak"
